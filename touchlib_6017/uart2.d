@@ -1,1 +1,0 @@
- uart2.d  uart2.p1:  uart2.c setsysdata.h main.h touch.h led.h uart2.h touchkey.h uart.h display.h

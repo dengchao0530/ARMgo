@@ -1,3 +1,0 @@
-"D:\Soft\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\touchlib_6017.dir/objects.a
-"D:\Soft\JetBrains\CLion 2023.2.2\bin\mingw\bin\ar.exe" qc CMakeFiles\touchlib_6017.dir/objects.a @CMakeFiles\touchlib_6017.dir\objects1.rsp
-"D:\Soft\JetBrains\CLion 2023.2.2\bin\mingw\bin\gcc.exe" -g -Wl,--whole-archive CMakeFiles\touchlib_6017.dir/objects.a -Wl,--no-whole-archive -o touchlib_6017.exe -Wl,--out-implib,libtouchlib_6017.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\touchlib_6017.dir\linkLibs.rsp
