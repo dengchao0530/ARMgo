@@ -1,0 +1,43 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/touchlib_6017.dir/GPIO_Init.c.obj"
+  "CMakeFiles/touchlib_6017.dir/GPIO_Init.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/beep.c.obj"
+  "CMakeFiles/touchlib_6017.dir/beep.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/control.c.obj"
+  "CMakeFiles/touchlib_6017.dir/control.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/display.c.obj"
+  "CMakeFiles/touchlib_6017.dir/display.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/eeprom.c.obj"
+  "CMakeFiles/touchlib_6017.dir/eeprom.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/encoder.c.obj"
+  "CMakeFiles/touchlib_6017.dir/encoder.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/irkey.c.obj"
+  "CMakeFiles/touchlib_6017.dir/irkey.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/led.c.obj"
+  "CMakeFiles/touchlib_6017.dir/led.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/main.c.obj"
+  "CMakeFiles/touchlib_6017.dir/main.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/set123.c.obj"
+  "CMakeFiles/touchlib_6017.dir/set123.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/setsysdata.c.obj"
+  "CMakeFiles/touchlib_6017.dir/setsysdata.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/tm1629b.c.obj"
+  "CMakeFiles/touchlib_6017.dir/tm1629b.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/touchkey.c.obj"
+  "CMakeFiles/touchlib_6017.dir/touchkey.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/uart.c.obj"
+  "CMakeFiles/touchlib_6017.dir/uart.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/uart2.c.obj"
+  "CMakeFiles/touchlib_6017.dir/uart2.c.obj.d"
+  "CMakeFiles/touchlib_6017.dir/voice.c.obj"
+  "CMakeFiles/touchlib_6017.dir/voice.c.obj.d"
+  "libtouchlib_6017.dll.a"
+  "touchlib_6017.exe"
+  "touchlib_6017.exe.manifest"
+  "touchlib_6017.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang C)
+  include(CMakeFiles/touchlib_6017.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

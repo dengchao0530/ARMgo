@@ -1,0 +1,3 @@
+C:/Users/123/Desktop/local_git_code/Y59/touchlib_6017/cmake-build-debug-mingw/CMakeFiles/touchlib_6017.dir
+C:/Users/123/Desktop/local_git_code/Y59/touchlib_6017/cmake-build-debug-mingw/CMakeFiles/edit_cache.dir
+C:/Users/123/Desktop/local_git_code/Y59/touchlib_6017/cmake-build-debug-mingw/CMakeFiles/rebuild_cache.dir

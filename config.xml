@@ -1,13 +1,9 @@
-# 使用说明
-
-## <mark>目前属于初步开发阶段，计划支持STM32和GD32系列，欢迎开发者前来一起维护</mark>
-
-## 主要参数在config.xml文件中设置
-
-## *1.参数说明*
-
-> <chiptype>STM32F103</chiptype>
-<chip_speed>72MHZ</chip_speed>
+<config>
+    <!-- 单片机型号 -->
+    <chipconfig>
+        <!-- 目前支持STM和GD -->
+        <chiptype>STM32F103</chiptype>
+        <chip_speed>72MHZ</chip_speed>
 
         <!-- 单片机定时器配置 -->
         <timerconfig>
@@ -53,6 +49,5 @@
             </pwm_enable>
         </timerconfig>
 
-## *1.代码说明*
-### 1.1获取配置文件内容在Config/config.go中
-### 1.2构建.c文件在create.go文件中
+    </chipconfig>
+</config>

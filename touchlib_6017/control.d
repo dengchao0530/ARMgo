@@ -1,0 +1,1 @@
+ control.d  control.p1:  control.c tm1629b.h setsysdata.h main.h touch.h led.h uart2.h beep.h touchkey.h uart.h GPIO_Init.h voice.h irkey.h encoder.h control.h eeprom.h display.h

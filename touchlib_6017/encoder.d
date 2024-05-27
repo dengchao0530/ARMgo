@@ -1,0 +1,1 @@
+ encoder.d  encoder.p1:  encoder.c main.h touch.h led.h uart.h encoder.h

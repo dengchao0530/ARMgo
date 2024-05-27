@@ -1,0 +1,1 @@
+ voice.d  voice.p1:  voice.c tm1629b.h setsysdata.h main.h touch.h led.h uart2.h beep.h touchkey.h uart.h voice.h encoder.h control.h eeprom.h display.h

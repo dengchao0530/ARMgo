@@ -1,0 +1,1 @@
+ touchkey.d  touchkey.p1:  touchkey.c setsysdata.h main.h touch.h led.h touchkey.h uart.h irkey.h
