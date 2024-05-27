@@ -6,6 +6,7 @@ import (
 	"strconv"
 )
 
+/*-------------------------------------------------------------------------------定时器相关-------------------------------------------------------------------------------*/
 // timeBaseTemplateStm32 生成 STM32 标准库定时器初始化代码
 func timeBaseTemplateStm32(config Config) string {
 	timer_base := config.ChipConfig.TimerConfig
@@ -136,4 +137,25 @@ func GenerateTimerCodestm32(config Config) string {
 `, timerInit, pwmConfig, interruptHandler)
 
 	return fullCode
+}
+
+/*-------------------------------------------------------------------------------通用IO相关-------------------------------------------------------------------------------*/
+func IOTemplateStm32(config Config) string {
+	iocode := fmt.Sprintf(`#include "stm32f10x.h"
+void GPIO_Init(void)
+{
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIO%s, ENABLE);
+	GPIO_InitTypeDef GPIO_InitStructure;
+ 	GPIO_InitStructure.GPIO_Mode = %s;
+	GPIO_InitStructure.GPIO_Speed = %s;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_%s;
+ 	GPIO_Init(GPIO%s, &GPIO_InitStructure);
+}
+`, config.ChipConfig.IOPutPort.GPIO[1:2], config.ChipConfig.IOPutPort.Mode, config.ChipConfig.IOPutPort.GPIOSpeed, config.ChipConfig.IOPutPort.GPIO[2:], config.ChipConfig.IOPutPort.GPIO[1:2])
+	return iocode
+}
+
+func GenerateIOCodestm32(config Config) string {
+	iocode := IOTemplateStm32(config)
+	return iocode
 }

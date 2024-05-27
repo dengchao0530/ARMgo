@@ -137,3 +137,7 @@ func GenerateTimerCodegd32(config Config) string {
 
 	return fullCode
 }
+
+func GenerateIOCodegd32(config Config) string {
+	return "0"
+}

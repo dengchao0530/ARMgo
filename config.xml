@@ -77,7 +77,7 @@
                 <usartnum>USART1</usartnum>
                 <Baud>115200</Baud>
                 <checkbit>NONE</checkbit>
-                <databit>1</databit>
+                <databit>8</databit>
                 <stopbit>1</stopbit>
                 <controlflow>NONE</controlflow>
 
