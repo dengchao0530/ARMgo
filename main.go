@@ -23,7 +23,7 @@ func main() {
 	}
 
 	// 生成定时器配置代码
-	timerCode := Config.GenerateTimerCode(config)
+	timerCode := Config.GenerateTimerCodestm32(config)
 
 	// 打开文件
 	file, err := os.OpenFile("Timer.c", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)

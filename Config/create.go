@@ -6,8 +6,8 @@ import (
 	"strconv"
 )
 
-// time_Base_template 生成 STM32 标准库定时器初始化代码
-func time_Base_template(config Config) string {
+// timeBaseTemplateStm32 生成 STM32 标准库定时器初始化代码
+func timeBaseTemplateStm32(config Config) string {
 	timer_base := config.ChipConfig.TimerConfig
 	var timer_Base_Code string
 	var nvic_Code string
@@ -81,8 +81,8 @@ void %s_IRQHandler(void) {
 	return code
 }
 
-// PWMConfigTemplate 生成 PWM 配置代码
-func PWMConfigTemplate(config Config) string {
+// PWMConfigTemplatestm32 生成 PWM 配置代码
+func PWMConfigTemplatestm32(config Config) string {
 	pwm := config.ChipConfig.TimerConfig.PWMEnable
 	period, err := strconv.Atoi(config.ChipConfig.TimerConfig.Period)
 	if err != nil {
@@ -121,10 +121,10 @@ void PWM_Config(void) {
 	return code
 }
 
-// GenerateTimerCode 生成完整的定时器相关的 C 代码
-func GenerateTimerCode(config Config) string {
-	timerInit := time_Base_template(config)
-	pwmConfig := PWMConfigTemplate(config)
+// GenerateTimerCodestm32 生成完整的定时器相关的 C 代码
+func GenerateTimerCodestm32(config Config) string {
+	timerInit := timeBaseTemplateStm32(config)
+	pwmConfig := PWMConfigTemplatestm32(config)
 	interruptHandler := TimerInterruptHandlerTemplate(config)
 
 	// 将所有代码组合在一起
@@ -136,35 +136,4 @@ func GenerateTimerCode(config Config) string {
 `, timerInit, pwmConfig, interruptHandler)
 
 	return fullCode
-}
-
-// Timer_init 用于配置定时器参数
-func Timer_init(config Config) string {
-	timerInit := time_Base_template(config)
-	interruptHandler := TimerInterruptHandlerTemplate(config)
-
-	// 将定时器初始化、NVIC 配置和定时器中断处理函数组合在一起
-	timerCode := fmt.Sprintf(`// Timer 初始化函数
-void Timer_init(void) {
-    %s
-
-    %s
-}
-`, timerInit, interruptHandler)
-
-	return timerCode
-}
-
-// Pwm_init 用于生成GPIO口初始化代码和产生PWM代码
-func Pwm_init(config Config) string {
-	pwmConfig := PWMConfigTemplate(config)
-
-	// 将PWM配置代码组合在一起
-	pwmCode := fmt.Sprintf(`// PWM 初始化函数
-void Pwm_init(void) {
-    %s
-}
-`, pwmConfig)
-
-	return pwmCode
 }
