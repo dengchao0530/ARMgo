@@ -1,3 +1,3 @@
-module go_script
+module ARMgo
 
-go 1.21.3
+go 1.22.3

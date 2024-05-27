@@ -5,6 +5,27 @@
         <chiptype>STM32F103</chiptype>
         <chip_speed>72MHZ</chip_speed>
 
+        <!-- 通用IO口输入输出配置配置 -->
+        <ioputport>
+            <gpio>PB0</gpio>
+            <mode>GPIO_Mode_Out_PP</mode>
+            <gpiospeed>GPIO_Speed_50MHz</gpiospeed>
+            <!-- 是否使用外部中断先 -->
+            <nvic>
+                <enable>1</enable>
+                <IRQChannel>TIM2_IRQn</IRQChannel>
+                <!-- 抢占优先级 -->
+                <pre_priority>0</pre_priority>
+                <!-- 相应优先级 -->
+                <sub_priority>0</sub_priority>
+
+                <!-- 是否打开中断函数 -->
+                <IRQ_Handle>
+                    <enable>1</enable>
+                </IRQ_Handle>
+            </nvic>
+        </ioputport>
+
         <!-- 单片机定时器配置 -->
         <timerconfig>
             <enable>1</enable>
@@ -48,6 +69,46 @@
                 <duty>50</duty>
             </pwm_enable>
         </timerconfig>
+
+        <!-- 单片机串口配置配置 -->
+        <uartconfig>
+            <!-- 串口通用配置 -->
+            <general>
+                <usartnum>USART1</usartnum>
+                <Baud>115200</Baud>
+                <checkbit>NONE</checkbit>
+                <databit>1</databit>
+                <stopbit>1</stopbit>
+                <controlflow>NONE</controlflow>
+
+                <gpio>
+                    <tx_gpio>PB1</tx_gpio>
+                    <rx_gpio>PB2</rx_gpio>
+                </gpio>
+                <!-- 串口模式配置 1：发送模式 2：接受模式 3：收发模式 -->
+                <mode>1</mode>
+            </general>
+
+            <nvic>
+                <enable>1</enable>                          <!-- 使能中断 -->
+                <IRQChannel>TIM2_IRQn</IRQChannel>          <!-- 中断通道 -->
+                <!-- 抢占优先级 -->
+                <pre_priority>0</pre_priority>
+                <!-- 相应优先级 -->
+                <sub_priority>0</sub_priority>
+
+                <!-- 是否打开中断函数 -->
+                <IRQ_Handle>
+                    <enable>1</enable>
+                </IRQ_Handle>
+            </nvic>
+
+            <!-- 串口重定向 -->
+            <fput>
+                <enable>1</enable>
+                <usartnum>USART1</usartnum>
+            </fput>
+        </uartconfig>
 
     </chipconfig>
 </config>
