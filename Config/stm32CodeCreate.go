@@ -7,7 +7,7 @@ import (
 )
 
 /*-------------------------------------------------------------------------------定时器相关-------------------------------------------------------------------------------*/
-// timeBaseTemplateStm32 生成 STM32 标准库定时器初始化代码
+//生成 STM32 标准库定时器初始化代码
 func timeBaseTemplateStm32(config Config) string {
 	timer_base := config.ChipConfig.TimerConfig
 	var timer_Base_Code string
@@ -66,7 +66,7 @@ void Timer_Init(void) {
 	return timer_code
 }
 
-// TimerInterruptHandlerTemplate 生成定时器中断处理函数代码
+// 生成定时器中断处理函数代码
 func timerInterruptHandlerTemplatestm32(config Config) string {
 	timerNum := config.ChipConfig.TimerConfig.TimerNum
 	code := fmt.Sprintf(`
@@ -82,7 +82,7 @@ void %s_IRQHandler(void) {
 	return code
 }
 
-// PWMConfigTemplatestm32 生成 PWM 配置代码
+// 生成 PWM 配置代码
 func pwmConfigTemplatestm32(config Config) string {
 	pwm := config.ChipConfig.TimerConfig.PWMEnable
 	period, err := strconv.Atoi(config.ChipConfig.TimerConfig.Period)
@@ -122,7 +122,7 @@ void PWM_Config(void) {
 	return code
 }
 
-// GenerateTimerCodestm32 生成完整的定时器相关的 C 代码
+// 生成完整的定时器相关的 C 代码
 func GenerateTimerCodestm32(config Config) string {
 	timerInit := timeBaseTemplateStm32(config)
 	pwmConfig := pwmConfigTemplatestm32(config)

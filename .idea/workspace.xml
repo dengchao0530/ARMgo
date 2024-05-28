@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="357ff61b-1425-48d9-ac2e-6931779e0ac4" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/Peripheral/gpio.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Peripheral/usart.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gpio_init.c" afterDir="false" />
+    <list default="true" id="357ff61b-1425-48d9-ac2e-6931779e0ac4" name="更改" comment="增加通用IO口的输入输出模式">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/Config/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/gd32CodeCreate.go" beforeDir="false" afterPath="$PROJECT_DIR$/Config/gd32CodeCreate.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/stm32CodeCreate.go" beforeDir="false" afterPath="$PROJECT_DIR$/Config/stm32CodeCreate.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,15 +16,21 @@
   </component>
   <component name="GOROOT" url="file://$USER_HOME$/go/go1.22.3" />
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2h2o6eeuqE7VGaifRhM9FnEt1Kx" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -48,7 +48,9 @@
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "last_opened_file_path": "C:/Users/123",
-    "settings.editor.selected.configurable": "go.vgo"
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RunManager">
@@ -65,6 +67,10 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="增加通用IO口的输入输出模式" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加通用IO口的输入输出模式" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
