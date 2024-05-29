@@ -28,4 +28,5 @@ func init() {
 func main() {
 	Peripheral.CreateTimerCode(config) //创建定时器代码
 	Peripheral.CreateIOCode(config)
+	Peripheral.CreateUsartCode(config)
 }

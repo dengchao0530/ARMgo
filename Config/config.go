@@ -66,6 +66,7 @@ type PWMConfig struct {
 }
 
 type UARTConfig struct {
+	Enable  int         `xml:"enable"`
 	General UARTGeneral `xml:"general"`
 	NVIC    UARTNVIC    `xml:"nvic"`
 	Fput    FputConfig  `xml:"fput"`

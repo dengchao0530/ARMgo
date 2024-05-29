@@ -5,15 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="357ff61b-1425-48d9-ac2e-6931779e0ac4" name="更改" comment="增加通用IO口的输入输出模式">
-      <change afterPath="$PROJECT_DIR$/debug.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/Config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/gd32CodeCreate.go" beforeDir="false" afterPath="$PROJECT_DIR$/Config/gd32CodeCreate.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/stm32CodeCreate.go" beforeDir="false" afterPath="$PROJECT_DIR$/Config/stm32CodeCreate.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Peripheral/gpio.go" beforeDir="false" afterPath="$PROJECT_DIR$/Peripheral/gpio.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Peripheral/usart.go" beforeDir="false" afterPath="$PROJECT_DIR$/Peripheral/usart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Timer.c" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go_script.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gpio_init.c" beforeDir="false" afterPath="$PROJECT_DIR$/gpio_init.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gpio_init.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

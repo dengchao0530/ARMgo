@@ -7,6 +7,7 @@
         <systick>1</systick><!-- 开启滴答定时器 -->
         <!-- 通用IO口输入输出配置配置 -->
         <ioputport>
+            <enable>1</enable>
             <gpio>PB0</gpio>
             <mode>GPIO_Mode_Out_PP</mode>
             <gpiospeed>GPIO_Speed_50MHz</gpiospeed>
@@ -38,10 +39,10 @@
             <timerchannel>CH1</timerchannel>
 
             <!-- 预分频配置 -->
-            <prescaler>72</prescaler>
+            <prescaler>100</prescaler>
 
             <!-- 自动重装配置 -->
-            <period>10000</period>
+            <period>100</period>
 
             <!-- 是否开启中断 -->
             <nvic>
@@ -74,6 +75,7 @@
 
         <!-- 单片机串口配置配置 -->
         <uartconfig>
+            <enable>1</enable>
             <!-- 串口通用配置 -->
             <general>
                 <usartnum>USART1</usartnum>

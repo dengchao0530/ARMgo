@@ -141,3 +141,97 @@ func GenerateTimerCodegd32(config Config) string {
 func GenerateIOCodegd32(config Config) string {
 	return "0"
 }
+
+/*todo:-------------------------------------------------------------------------------串口相关-------------------------------------------------------------------------------*/
+func usartCodegd32(config Config) string {
+	var usartioConfigcode string
+	PeriphPort := config.ChipConfig.UARTConfig.General.GPIO.TXGPIO[1:2]
+	PeriphSuart := config.ChipConfig.UARTConfig.General.USARTNum
+	rxpin := config.ChipConfig.UARTConfig.General.GPIO.RXGPIO[2:]
+	txpin := config.ChipConfig.UARTConfig.General.GPIO.TXGPIO[2:]
+	baud := config.ChipConfig.UARTConfig.General.Baud
+	//确认开启串口
+	if config.ChipConfig.UARTConfig.Enable == 1 {
+		usartioConfigcode = fmt.Sprintf(`
+void Serial_Init(void)
+{
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_%s, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIO%s, ENABLE);
+	
+	GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_%s;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIO%s, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_%s;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIO%s, &GPIO_InitStructure);
+	
+	USART_InitTypeDef USART_InitStructure;
+	USART_InitStructure.USART_BaudRate = %s;
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+	USART_InitStructure.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
+	USART_InitStructure.USART_Parity = USART_Parity_No;
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+	USART_Init(%s, &USART_InitStructure);
+	USART_Cmd(%s, ENABLE);
+`, PeriphSuart, PeriphPort, txpin, PeriphPort, rxpin, PeriphPort, baud, PeriphSuart, PeriphSuart)
+		return usartioConfigcode
+	}
+	return ""
+}
+
+func usartNvicgd32(config Config) string {
+	var usartIRQhandle string
+	PeriphSuart := config.ChipConfig.UARTConfig.General.USARTNum
+	if config.ChipConfig.UARTConfig.NVIC.Enable == 1 {
+		usartIRQhandle = fmt.Sprintf(`
+	USART_ITConfig(%s, USART_IT_RXNE, ENABLE);
+	
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+	
+	NVIC_InitTypeDef NVIC_InitStructure;
+	NVIC_InitStructure.NVIC_IRQChannel = %s_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = %s;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = %s;
+	NVIC_Init(&NVIC_InitStructure);
+`, PeriphSuart, PeriphSuart, config.ChipConfig.UARTConfig.NVIC.PrePriority, config.ChipConfig.UARTConfig.NVIC.SubPriority)
+		return usartIRQhandle
+	}
+	return "}"
+}
+
+func usartIRQHandlegd32(config Config) string {
+	var usartIRQHandle string
+	PeriphSuart := config.ChipConfig.UARTConfig.General.USARTNum
+	if config.ChipConfig.UARTConfig.NVIC.IRQHandle.Enable == 1 {
+		usartIRQHandle = fmt.Sprintf(`
+void USART1_IRQHandler(void)
+{
+	if (USART_GetITStatus(%s, USART_IT_RXNE) == SET)
+	{
+		USART_ClearITPendingBit(%s, USART_IT_RXNE);
+	}
+}
+`, PeriphSuart, PeriphSuart)
+		return usartIRQHandle
+	}
+	return ""
+}
+
+func GenerateUsartCodegd32(config Config) string {
+	usartconfigcode := usartCodegd32(config)
+	usartconfignvic := usartNvicgd32(config)
+	usartirqhandle := usartIRQHandlegd32(config)
+	UsartCode := fmt.Sprintf(`
+%s
+
+%s
+
+%s`, usartconfigcode, usartconfignvic, usartirqhandle)
+	return UsartCode
+}
