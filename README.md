@@ -6,7 +6,7 @@
 
 ## *1.参数说明*
 
-> <chiptype>STM32F103</chiptype>
+><chiptype>STM32F103</chiptype>
 <chip_speed>72MHZ</chip_speed>
 
         <!-- 单片机定时器配置 -->

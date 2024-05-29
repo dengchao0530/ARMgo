@@ -28,11 +28,12 @@ type IOPutPort struct {
 }
 
 type PortNVICConfig struct {
-	Enable      int       `xml:"enable"`
-	IRQChannel  string    `xml:"IRQChannel"`
-	PrePriority int       `xml:"pre_priority"`
-	SubPriority int       `xml:"sub_priority"`
-	IRQHandle   IRQHandle `xml:"IRQ_Handle"`
+	Enable          int       `xml:"enable"`
+	triggeringlevel string    `xml:"triggeringlevel"`
+	IRQChannel      string    `xml:"IRQChannel"`
+	PrePriority     int       `xml:"pre_priority"`
+	SubPriority     int       `xml:"sub_priority"`
+	IRQHandle       IRQHandle `xml:"IRQ_Handle"`
 }
 
 type TimerConfig struct {

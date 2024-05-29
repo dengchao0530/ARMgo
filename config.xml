@@ -4,7 +4,7 @@
         <!-- 目前支持STM和GD -->
         <chiptype>STM32F103</chiptype>
         <chip_speed>72MHZ</chip_speed>
-
+        <systick>1</systick><!-- 开启滴答定时器 -->
         <!-- 通用IO口输入输出配置配置 -->
         <ioputport>
             <gpio>PB0</gpio>
@@ -13,6 +13,8 @@
             <!-- 是否使用外部中断先 -->
             <nvic>
                 <enable>1</enable>
+                <!-- 触发电平 -->
+                <triggeringlevel>EXTI_Trigger_Rising</triggeringlevel>
                 <IRQChannel>TIM2_IRQn</IRQChannel>
                 <!-- 抢占优先级 -->
                 <pre_priority>0</pre_priority>
@@ -80,13 +82,12 @@
                 <databit>8</databit>
                 <stopbit>1</stopbit>
                 <controlflow>NONE</controlflow>
-
+                <!-- 串口模式配置 1：发送模式 2：接受模式 3：收发模式 -->
+                <mode>1</mode>
                 <gpio>
                     <tx_gpio>PB1</tx_gpio>
                     <rx_gpio>PB2</rx_gpio>
                 </gpio>
-                <!-- 串口模式配置 1：发送模式 2：接受模式 3：收发模式 -->
-                <mode>1</mode>
             </general>
 
             <nvic>

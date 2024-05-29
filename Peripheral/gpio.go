@@ -25,5 +25,5 @@ func CreateIOCode(config Config.Config) {
 	if _, err := file.WriteString(timerCode); err != nil {
 		log.Fatalf("写入文件失败: %v", err)
 	}
-	log.Println("定时器配置代码已成功写入 gpio_init.c 文件")
+	log.Println("IO配置代码已成功写入 gpio_init.c 文件")
 }

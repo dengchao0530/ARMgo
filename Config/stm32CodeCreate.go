@@ -6,28 +6,28 @@ import (
 	"strconv"
 )
 
-/*-------------------------------------------------------------------------------定时器相关-------------------------------------------------------------------------------*/
+/*todo:-------------------------------------------------------------------------------定时器相关-------------------------------------------------------------------------------*/
 //生成 STM32 标准库定时器初始化代码
 func timeBaseTemplateStm32(config Config) string {
-	timer_base := config.ChipConfig.TimerConfig
-	var timer_Base_Code string
-	var nvic_Code string
+	timerBase := config.ChipConfig.TimerConfig
+	var timerBaseCode string
+	var nvicCode string
 
 	// 根据定时器号设置 RCC 时钟使能宏和定时器初始化
-	var rcc_periph string
-	var rcc_APB string
-	var tim_instance string
-	if timer_base.TimerNum == "TIM1" || timer_base.TimerNum == "TIM8" {
-		rcc_periph = fmt.Sprintf("RCC_APB2PeriphClockCmd")
-		rcc_APB = fmt.Sprintf("RCC_APB2Periph_%s", config.ChipConfig.TimerConfig.TimerNum)
-		tim_instance = timer_base.TimerNum
+	var rccPeriph string
+	var rccApb string
+	var timInstance string
+	if timerBase.TimerNum == "TIM1" || timerBase.TimerNum == "TIM8" {
+		rccPeriph = fmt.Sprintf("RCC_APB2PeriphClockCmd")
+		rccApb = fmt.Sprintf("RCC_APB2Periph_%s", config.ChipConfig.TimerConfig.TimerNum)
+		timInstance = timerBase.TimerNum
 	} else {
-		rcc_periph = fmt.Sprintf("RCC_APB1PeriphClockCmd")
-		rcc_APB = fmt.Sprintf("RCC_APB1Periph_%s", config.ChipConfig.TimerConfig.TimerNum)
-		tim_instance = timer_base.TimerNum
+		rccPeriph = fmt.Sprintf("RCC_APB1PeriphClockCmd")
+		rccApb = fmt.Sprintf("RCC_APB1Periph_%s", config.ChipConfig.TimerConfig.TimerNum)
+		timInstance = timerBase.TimerNum
 	}
 
-	timer_Base_Code = fmt.Sprintf(`
+	timerBaseCode = fmt.Sprintf(`
 #include "stm32f10x.h"
 
 // 定时器初始化函数
@@ -43,11 +43,11 @@ void Timer_Init(void) {
     TIM_TimeBaseInit(%s, &TIM_TimeBaseStructure);
     TIM_ARRPreloadConfig(%s, ENABLE);
     TIM_Cmd(%s, ENABLE);
-`, rcc_periph, rcc_APB, timer_base.Period, timer_base.Prescaler, tim_instance, tim_instance, tim_instance)
+`, rccPeriph, rccApb, timerBase.Period, timerBase.Prescaler, timInstance, timInstance, timInstance)
 
 	//如果开启的中断
 	if config.ChipConfig.TimerConfig.NVIC.Enable == 1 {
-		nvic_Code = fmt.Sprintf(`	//配置nvic
+		nvicCode = fmt.Sprintf(`	//配置nvic
 	NVIC_InitTypeDef NVIC_InitStructure;
     NVIC_InitStructure.NVIC_IRQChannel = %s;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = %d;
@@ -57,13 +57,13 @@ void Timer_Init(void) {
 }
 `, config.ChipConfig.TimerConfig.NVIC.IRQChannel, config.ChipConfig.TimerConfig.NVIC.PrePriority, config.ChipConfig.TimerConfig.NVIC.SubPriority, "ENABLE")
 	} else { //如果没有开启的中断
-		nvic_Code = fmt.Sprintf(`
+		nvicCode = fmt.Sprintf(`
 	}
 `)
 	}
-	timer_code := fmt.Sprintf(`%s
-%s`, timer_Base_Code, nvic_Code)
-	return timer_code
+	timerCode := fmt.Sprintf(`%s
+%s`, timerBaseCode, nvicCode)
+	return timerCode
 }
 
 // 生成定时器中断处理函数代码
@@ -78,7 +78,7 @@ void %s_IRQHandler(void) {
     }
 }
 `, timerNum, timerNum, timerNum)
-
+	fmt.Println()
 	return code
 }
 
@@ -139,7 +139,7 @@ func GenerateTimerCodestm32(config Config) string {
 	return fullCode
 }
 
-/*-------------------------------------------------------------------------------通用IO相关-------------------------------------------------------------------------------*/
+/*todo:-------------------------------------------------------------------------------通用IO相关-------------------------------------------------------------------------------*/
 func IOTemplateStm32(config Config) string {
 	iocode := fmt.Sprintf(`#include "stm32f10x.h"
 void GPIO_Init(void)
@@ -150,12 +150,66 @@ void GPIO_Init(void)
 	GPIO_InitStructure.GPIO_Speed = %s;
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_%s;
  	GPIO_Init(GPIO%s, &GPIO_InitStructure);
-}
 `, config.ChipConfig.IOPutPort.GPIO[1:2], config.ChipConfig.IOPutPort.Mode, config.ChipConfig.IOPutPort.GPIOSpeed, config.ChipConfig.IOPutPort.GPIO[2:], config.ChipConfig.IOPutPort.GPIO[1:2])
 	return iocode
 }
 
+func IOExitStm32(config Config) string {
+	if config.ChipConfig.IOPutPort.NVIC.Enable == 1 {
+		ioexti := fmt.Sprintf(`
+	EXTI_InitTypeDef EXTI_InitStructure;
+ 	NVIC_InitTypeDef NVIC_InitStructure;
+
+ 	//使能复用功能时钟
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);	
+	//选择EXTI信号源
+  	GPIO_EXTILineConfig(GPIO_PortSourceGPIO%s,GPIO_PinSource%s);
+	//确定中断线、中断模式、触发方式并使能：
+  	EXTI_InitStructure.EXTI_Line=EXTI_Line%s;
+  	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;	
+  	EXTI_InitStructure.EXTI_Trigger = %s;
+  	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  	EXTI_Init(&EXTI_InitStructure);
+	//确定中断源、优先级（抢占优先级和子优先级），使能：
+  	NVIC_InitStructure.NVIC_IRQChannel = %s;	
+  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = %d;	
+  	NVIC_InitStructure.NVIC_IRQChannelSubPriority = %d;				
+  	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			
+  	NVIC_Init(&NVIC_InitStructure);
+}`, config.ChipConfig.IOPutPort.GPIO[1:2], config.ChipConfig.IOPutPort.GPIO[2:3], config.ChipConfig.IOPutPort.GPIO[2:3], config.ChipConfig.IOPutPort.NVIC.triggeringlevel, config.ChipConfig.IOPutPort.NVIC.IRQChannel, config.ChipConfig.IOPutPort.NVIC.PrePriority, config.ChipConfig.IOPutPort.NVIC.SubPriority)
+		return ioexti
+	}
+	return ""
+}
+
+func IOIRQHandle(config Config) string {
+	if config.ChipConfig.IOPutPort.NVIC.Enable == 1 {
+		IRQHandle := fmt.Sprintf(`
+void %s_IRQHandler(void)
+{
+	 if (EXTI_GetITStatus(EXTI_Line%s) != RESET) {
+        // 清除中断标志
+        EXTI_ClearITPendingBit(EXTI_Line%s);
+
+        // 用户代码: 处理中断事件
+    }
+}`, config.ChipConfig.IOPutPort.NVIC.IRQChannel, config.ChipConfig.IOPutPort.GPIO[2:3], config.ChipConfig.IOPutPort.GPIO[2:3])
+		return IRQHandle
+	}
+	return ""
+}
+
 func GenerateIOCodestm32(config Config) string {
-	iocode := IOTemplateStm32(config)
+	ioconfigcode := IOTemplateStm32(config)
+	ioconfigexit := IOExitStm32(config)
+	ioirqhandle := IOIRQHandle(config)
+	iocode := fmt.Sprintf(`
+%s
+
+%s
+
+%s`, ioconfigcode, ioconfigexit, ioirqhandle)
 	return iocode
 }
+
+/*todo:-------------------------------------------------------------------------------串口相关-------------------------------------------------------------------------------*/
